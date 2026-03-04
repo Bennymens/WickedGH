@@ -1,13 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import heroVideo from "../assets/videos/hero/WhatsApp Video 2026-03-03 at 2.40.33 PM (1).mp4";
 
 export default function Hero() {
     return (
         <section className="wg-hero">
-            {/* Full-bleed editorial image */}
-            <img
-                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1600&q=85&fit=crop&crop=top"
-                alt="Wicked GH Collection"
+            {/* Full-bleed editorial video */}
+            <video
+                src={heroVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
 
             {/* Bottom text overlay — exact J&J layout */}
