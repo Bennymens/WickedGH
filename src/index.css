@@ -427,6 +427,15 @@ button {
   aspect-ratio: 1 / 1 !important;
 }
 
+.wg-arrivals-marquee .wg-card-img-wrap img {
+  object-fit: contain;
+  padding: 0.75rem;
+}
+
+.wg-arrivals-marquee .wg-card:hover .wg-card-img-wrap img {
+  transform: none;
+}
+
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
@@ -459,6 +468,51 @@ button {
   .wg-arrivals-marquee {
     padding: 0 0 60px;
   }
+}
+
+/* Shop-page card variant — static info below image */
+.wg-card--shop {
+  overflow: visible;
+  background: transparent;
+}
+
+.wg-card-shop-inner {
+  background: var(--gray-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.wg-card--shop .wg-card-img-wrap {
+  aspect-ratio: 1 / 1;
+  background: var(--gray-card);
+  width: 100%;
+}
+
+.wg-card--shop .wg-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.wg-card--shop:hover .wg-card-img-wrap img {
+  transform: scale(1.03);
+}
+
+.wg-card-shop-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.7rem 1rem 1rem;
+  gap: 0.5rem;
+  background: var(--gray-card);
+}
+
+.wg-card-shop-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: 0.01em;
 }
 
 /* ================================================
@@ -913,42 +967,121 @@ button {
   min-height: 100vh;
 }
 
-.wg-shop-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 2rem;
+/* Sticky filter bar */
+.wg-shop-filterbar {
+  background: var(--white);
   border-bottom: 1px solid #e9e9e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  gap: 1rem;
 }
 
-.wg-shop-title {
-  font-size: 0.72rem;
-  font-weight: 700;
+.wg-shop-cats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wg-shop-cats::-webkit-scrollbar {
+  display: none;
+}
+
+.wg-shop-cat-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: var(--font);
+  font-size: 0.65rem;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: var(--gray-mid);
+  padding: 1.1rem 1.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.wg-shop-cat-btn:hover {
+  color: var(--black);
+}
+
+.wg-shop-cat-btn.active {
+  color: var(--black);
+  border-bottom-color: var(--black);
 }
 
 .wg-shop-count {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--gray-mid);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+}
+
+/* Scrolling ticker */
+.wg-shop-ticker {
+  overflow: hidden;
+  padding: 0.9rem 0;
+  background: var(--white);
+}
+
+.wg-shop-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: shop-ticker-scroll 90s linear infinite;
+}
+
+.wg-shop-ticker-track span {
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding-right: 0;
+  white-space: nowrap;
+}
+
+@keyframes shop-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .wg-shop-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  padding: 0;
+  gap: 1.25rem;
+  padding: 2.5rem 8rem;
 }
 
 @media (max-width: 900px) {
   .wg-shop-grid {
     grid-template-columns: repeat(2, 1fr);
+    padding: 2.5rem 2rem;
   }
 }
 
 @media (max-width: 480px) {
+  .wg-shop-filterbar {
+    padding: 0 1rem;
+  }
+  .wg-shop-cat-btn {
+    padding: 1rem 0.8rem;
+    font-size: 0.6rem;
+  }
   .wg-shop-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem 1rem;
+    gap: 0.75rem;
   }
 }
 
