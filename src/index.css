@@ -1,0 +1,1101 @@
+/* ================================================
+   WICKED GH — Full J&J Style Design System
+   ================================================ */
+
+/* --- FONTS & TOKENS -------------------------------- */
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --gray-card: #f0f0f0;
+  --gray-mid: #999999;
+  --gray-line: #222222;
+  --gray-dark: #1a1a1a;
+  --accent-red: #c0392b;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h: 56px;
+  --ticker-h: 32px;
+}
+
+/* --- RESET ----------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font);
+  border: none;
+  background: none;
+}
+
+/* ================================================
+   ANNOUNCEMENT TICKER
+   ================================================ */
+.wg-ticker {
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  height: var(--ticker-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+/* ================================================
+   HEADER — exact J&J layout
+   Desktop: [hamburger]  [logo  nav]  [login bag]
+   Mobile:  [hamburger]  [logo]       [bag]
+   ================================================ */
+.wg-header {
+  position: sticky;
+  top: var(--ticker-h);
+  z-index: 100;
+  background: var(--black);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+/* HAMBURGER */
+.wg-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.wg-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  transform-origin: center;
+}
+
+.wg-hamburger.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.wg-hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.wg-hamburger.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* CENTER: logo + nav */
+.wg-header-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.wg-logo {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wg-header-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.wg-header-nav a {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.wg-header-nav a:hover {
+  opacity: 0.6;
+}
+
+/* RIGHT: account + bag */
+.wg-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}
+
+.wg-header-right a,
+.wg-header-right button {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  background: none;
+  border: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.wg-header-right a:hover,
+.wg-header-right button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .wg-header-nav {
+    display: none;
+  }
+
+  .wg-header-right .wg-desktop-only {
+    display: none;
+  }
+}
+
+/* ================================================
+   MOBILE MENU OVERLAY
+   ================================================ */
+.wg-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem 3rem;
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--ease);
+  overflow-y: auto;
+}
+
+.wg-menu-overlay.open {
+  transform: translateX(0);
+}
+
+/* overlay header row — mirrors sticky header */
+.wg-overlay-header {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid #1c1c1c;
+  margin-bottom: 2.5rem;
+  flex-shrink: 0;
+}
+
+.wg-overlay-logo {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* nav items */
+.wg-overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 3rem;
+}
+
+.wg-overlay-nav a {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #1c1c1c;
+  transition: opacity 0.2s;
+}
+
+.wg-overlay-nav a:hover {
+  opacity: 0.5;
+}
+
+.wg-overlay-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.wg-overlay-secondary a {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #888;
+}
+
+.wg-overlay-secondary a:hover {
+  color: var(--white);
+}
+
+/* ================================================
+   HERO — full width editorial with text overlay
+   ================================================ */
+.wg-hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--header-h) - var(--ticker-h));
+  min-height: 500px;
+  overflow: hidden;
+  background: #111;
+}
+
+.wg-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.85;
+}
+
+/* HUGE bottom-left text overlay — exactly like J&J */
+.wg-hero-text-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.wg-hero-headline {
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--white);
+  text-transform: none;
+  pointer-events: none;
+}
+
+.wg-hero-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.wg-hero-credit {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--white);
+}
+
+.wg-hero-cta {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.wg-hero-cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+/* ================================================
+   NEW ARRIVALS — signature J&J overlapping text
+   ================================================ */
+.wg-arrivals {
+  background: var(--white);
+  padding-bottom: 4rem;
+  overflow: hidden;
+}
+
+.wg-arrivals-header {
+  padding: 3.5rem 2rem 0;
+  position: relative;
+}
+
+.wg-arrivals-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: -0.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.wg-arrivals-title {
+  font-size: clamp(5rem, 14vw, 14rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--black);
+  text-transform: lowercase;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -2rem;
+  /* bleeds into grid below */
+}
+
+/* Horizontal scrollable product row (exactly like J&J homepage) */
+.wg-arrivals-scroll {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+@media (max-width: 1024px) {
+  .wg-arrivals-scroll {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .wg-arrivals-scroll {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================================
+   PRODUCT CARD
+   ================================================ */
+.wg-card {
+  position: relative;
+  background: var(--gray-card);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.wg-card-img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--gray-card);
+}
+
+.wg-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s var(--ease);
+}
+
+.wg-card:hover .wg-card-img-wrap img {
+  transform: scale(1.06);
+}
+
+/* BUY overlay slides up */
+.wg-card-hover-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 0 1rem;
+  display: flex;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform 0.28s var(--ease);
+}
+
+.wg-card:hover .wg-card-hover-btn {
+  transform: translateY(0);
+}
+
+.wg-buy-btn {
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 9px 22px;
+  border-radius: 3px;
+  border: none;
+  transition: background 0.2s;
+}
+
+.wg-buy-btn:hover {
+  background: #333;
+}
+
+.wg-card-info {
+  background: var(--gray-card);
+  padding: 0.6rem 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.wg-card-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.01em;
+}
+
+.wg-card-price-col {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.wg-card-orig {
+  font-size: 0.65rem;
+  color: var(--gray-mid);
+  text-decoration: line-through;
+  display: block;
+}
+
+.wg-card-price {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.wg-card-price.sale {
+  color: var(--accent-red);
+}
+
+/* ================================================
+   SHOP BY CATEGORY  (black section, text bleeds)
+   ================================================ */
+.wg-category {
+  background: var(--black);
+  overflow: hidden;
+}
+
+.wg-category-header {
+  padding: 4rem 2rem 0;
+}
+
+.wg-category-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.wg-category-title {
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--white);
+  text-transform: lowercase;
+  margin-bottom: -1.5rem;
+}
+
+.wg-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .wg-cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .wg-cat-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+  }
+}
+
+.wg-cat-tile {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+}
+
+.wg-cat-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+  filter: brightness(0.75);
+}
+
+.wg-cat-tile:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.9);
+}
+
+.wg-cat-tile-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* ================================================
+   EDITORIAL BANNER
+   ================================================ */
+.wg-editorial {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+}
+
+.wg-editorial img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wg-editorial-label {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.wg-editorial-label span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.wg-editorial-label a {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white);
+  padding: 8px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: background 0.2s;
+}
+
+.wg-editorial-label a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ================================================
+   SHOP PAGE — 3-col grid with filters header
+   ================================================ */
+.wg-shop {
+  min-height: 100vh;
+}
+
+.wg-shop-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.wg-shop-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.wg-shop-count {
+  font-size: 0.68rem;
+  color: var(--gray-mid);
+}
+
+.wg-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .wg-shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .wg-shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================
+   PRODUCT DETAIL PAGE — 3-col layout
+   Left: details accordion | Center: image | Right: buy
+   ================================================ */
+.wg-pdp {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  min-height: calc(100vh - var(--header-h) - var(--ticker-h));
+}
+
+@media (max-width: 900px) {
+  .wg-pdp {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .wg-pdp-left {
+    order: 3;
+  }
+
+  .wg-pdp-center {
+    order: 1;
+  }
+
+  .wg-pdp-right {
+    order: 2;
+  }
+}
+
+/* LEFT: description etc */
+.wg-pdp-left {
+  padding: 3rem 2rem;
+  border-right: 1px solid #ebebeb;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.wg-pdp-accordion {
+  border-bottom: 1px solid #ebebeb;
+}
+
+.wg-pdp-accordion-btn {
+  width: 100%;
+  text-align: left;
+  padding: 1rem 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wg-pdp-accordion-btn::after {
+  content: '+';
+  font-size: 1rem;
+  font-weight: 300;
+  transition: transform 0.25s;
+}
+
+.wg-pdp-accordion.open .wg-pdp-accordion-btn::after {
+  content: '−';
+}
+
+.wg-pdp-accordion-body {
+  display: none;
+  padding: 0 0 1rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+.wg-pdp-accordion.open .wg-pdp-accordion-body {
+  display: block;
+}
+
+/* CENTER: product image - large, gray bg */
+.wg-pdp-center {
+  background: var(--gray-card);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 70vh;
+}
+
+.wg-pdp-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3rem;
+}
+
+/* Giant product-name text behind image — exact J&J technique */
+.wg-pdp-bg-text {
+  position: absolute;
+  bottom: -0.05em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(5rem, 12vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+/* RIGHT: buy panel */
+.wg-pdp-right {
+  padding: 3rem 2rem;
+  border-left: 1px solid #ebebeb;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wg-pdp-brand {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+.wg-pdp-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.wg-pdp-prices {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wg-pdp-orig {
+  font-size: 0.85rem;
+  text-decoration: line-through;
+  color: var(--gray-mid);
+}
+
+.wg-pdp-current {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.wg-pdp-current.sale {
+  color: var(--accent-red);
+}
+
+.wg-pdp-section-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+
+/* Size buttons */
+.wg-size-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.wg-size-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #ddd;
+  background: var(--white);
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.wg-size-btn:hover,
+.wg-size-btn.selected {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+
+.wg-size-btn.oos {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Add to cart */
+.wg-atc-btn {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.wg-atc-btn:hover {
+  background: #222;
+}
+
+.wg-pdp-back {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+}
+
+.wg-pdp-back:hover {
+  color: var(--black);
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+.wg-footer {
+  background: var(--black);
+  border-top: 1px solid #1c1c1c;
+}
+
+/* Newsletter bar */
+.wg-footer-newsletter {
+  border-bottom: 1px solid #1c1c1c;
+  padding: 2.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.wg-newsletter-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.wg-newsletter-form {
+  display: flex;
+  border-bottom: 1px solid #444;
+  flex: 1;
+  max-width: 340px;
+}
+
+.wg-newsletter-input {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  color: var(--white);
+  padding: 8px 0;
+  flex: 1;
+}
+
+.wg-newsletter-input::placeholder {
+  color: #555;
+}
+
+.wg-newsletter-submit {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px 0 8px 12px;
+  transition: opacity 0.2s;
+}
+
+.wg-newsletter-submit:hover {
+  opacity: 0.6;
+}
+
+/* Footer columns */
+.wg-footer-body {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .wg-footer-body {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .wg-footer-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wg-footer-col-title {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.wg-footer-col a {
+  display: block;
+  font-size: 0.72rem;
+  color: #777;
+  margin-bottom: 0.55rem;
+  transition: color 0.2s;
+}
+
+.wg-footer-col a:hover {
+  color: var(--white);
+}
+
+.wg-footer-bottom {
+  border-top: 1px solid #1c1c1c;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.wg-footer-copy {
+  font-size: 0.6rem;
+  color: #444;
+  letter-spacing: 0.05em;
+}
+
+/* ================================================
+   CART SIDEBAR / SIMPLE CART PAGE
+   ================================================ */
+.wg-cart-page {
+  min-height: calc(100vh - var(--header-h) - var(--ticker-h));
+  padding: 4rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.wg-cart-page h1 {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 1rem;
+}
+
+.wg-cart-empty {
+  font-size: 0.85rem;
+  color: var(--gray-mid);
+}
+
+/* ================================================
+   UTILITIES
+   ================================================ */
+/* Body scroll lock when menu is open */
+body.menu-open {
+  overflow: hidden;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wg-fade-up {
+  animation: fadeUp 0.8s var(--ease) forwards;
+}
