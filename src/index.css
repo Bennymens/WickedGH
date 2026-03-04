@@ -11,7 +11,7 @@
   --gray-line: #222222;
   --gray-dark: #1a1a1a;
   --accent-red: #c0392b;
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --font: "Inter", system-ui, -apple-system, sans-serif;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --header-h: 56px;
   --ticker-h: 32px;
@@ -114,7 +114,9 @@ button {
   width: 22px;
   height: 1.5px;
   background: var(--white);
-  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  transition:
+    transform 0.3s var(--ease),
+    opacity 0.3s var(--ease);
   transform-origin: center;
 }
 
@@ -346,7 +348,9 @@ button {
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
-  transition: background 0.25s, border-color 0.25s;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
 }
 
 .wg-hero-cta:hover {
@@ -359,17 +363,17 @@ button {
    ================================================ */
 .wg-arrivals {
   background: var(--white);
-  padding-bottom: 4rem;
+  padding-bottom: 6rem;
   overflow: hidden;
 }
 
 .wg-arrivals-header {
-  padding: 3.5rem 2rem 0;
+  padding: 3.5rem 2rem 0 8rem;
   position: relative;
 }
 
 .wg-arrivals-eyebrow {
-  font-size: 0.65rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -380,7 +384,7 @@ button {
 }
 
 .wg-arrivals-title {
-  font-size: clamp(5rem, 14vw, 14rem);
+  font-size: clamp(6rem, 18vw, 18rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -388,28 +392,72 @@ button {
   text-transform: lowercase;
   position: relative;
   z-index: 1;
-  margin-bottom: -2rem;
-  /* bleeds into grid below */
+  margin-bottom: -4rem;
+  /* bleeds into cards above */
 }
 
-/* Horizontal scrollable product row (exactly like J&J homepage) */
-.wg-arrivals-scroll {
+/* Seamless auto-scrolling row (exactly like J&J homepage) */
+.wg-arrivals-marquee {
+  width: 100%;
+  overflow: hidden;
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
+  background: transparent;
+  padding: 0 0 80px;
+}
+
+.wg-arrivals-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 120s linear infinite; /* Even slower for smaller cards */
+  gap: 0.5rem; /* Tighter gap like screenshot */
+  padding-left: 0.25rem;
+}
+
+/* Removed hover pause as requested */
+
+.wg-arrivals-track > * {
+  width: 380px !important;
+  flex-shrink: 0;
+  border-right: none;
+}
+
+/* Force square image inside the marquee */
+.wg-arrivals-marquee .wg-card-img-wrap {
+  aspect-ratio: 1 / 1 !important;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.25rem));
+  }
 }
 
 @media (max-width: 1024px) {
-  .wg-arrivals-scroll {
-    grid-template-columns: repeat(3, 1fr);
+  .wg-arrivals-track > * {
+    width: 280px !important;
   }
 }
 
 @media (max-width: 640px) {
-  .wg-arrivals-scroll {
-    grid-template-columns: repeat(2, 1fr);
+  .wg-arrivals-header {
+    padding: 2.5rem 1.5rem 0 1.5rem; /* Left-aligned on mobile */
+  }
+
+  .wg-arrivals-title {
+    font-size: clamp(5rem, 22vw, 8rem);
+    margin-bottom: -1.5rem;
+  }
+
+  .wg-arrivals-track > * {
+    width: 260px !important; /* Bigger cards on mobile */
+  }
+
+  .wg-arrivals-marquee {
+    padding: 0 0 60px;
   }
 }
 
@@ -418,14 +466,14 @@ button {
    ================================================ */
 .wg-card {
   position: relative;
-  background: var(--gray-card);
+  background: transparent;
   cursor: pointer;
   overflow: hidden;
 }
 
 .wg-card-img-wrap {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--gray-card);
 }
@@ -438,79 +486,90 @@ button {
 }
 
 .wg-card:hover .wg-card-img-wrap img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
-/* BUY overlay slides up */
-.wg-card-hover-btn {
+/* Slide-up info panel from bottom of image */
+.wg-card-info-wrap {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
-  padding: 0 0 1rem;
-  display: flex;
-  justify-content: center;
+  right: 0;
+  background: #ffffff;
+  padding: 0.75rem 0.75rem 0.6rem;
   transform: translateY(100%);
-  transition: transform 0.28s var(--ease);
+  transition: transform 0.35s var(--ease);
+  z-index: 10;
 }
 
-.wg-card:hover .wg-card-hover-btn {
+.wg-card-img-wrap:hover .wg-card-info-wrap,
+.wg-card:hover .wg-card-info-wrap {
   transform: translateY(0);
 }
 
-.wg-buy-btn {
-  background: var(--black);
-  color: var(--white);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 9px 22px;
-  border-radius: 3px;
-  border: none;
-  transition: background 0.2s;
-}
-
-.wg-buy-btn:hover {
-  background: #333;
-}
-
 .wg-card-info {
-  background: var(--gray-card);
-  padding: 0.6rem 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .wg-card-name {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--black);
   letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .wg-card-price-col {
   text-align: right;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .wg-card-orig {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--gray-mid);
   text-decoration: line-through;
-  display: block;
 }
 
 .wg-card-price {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--black);
 }
 
 .wg-card-price.sale {
   color: var(--accent-red);
+}
+
+.wg-buy-btn {
+  width: fit-content;
+  display: block;
+  background: transparent;
+  color: var(--black);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--black);
+  border-radius: 6px;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  cursor: pointer;
+}
+
+.wg-buy-btn:hover {
+  background: var(--black);
+  color: var(--white);
 }
 
 /* ================================================
@@ -522,30 +581,30 @@ button {
 }
 
 .wg-category-header {
-  padding: 4rem 2rem 0;
+  padding: 4rem 2rem 0 8rem;
 }
 
 .wg-category-eyebrow {
-  font-size: 0.6rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 900;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #666;
+  color: #999;
 }
 
 .wg-category-title {
-  font-size: clamp(4rem, 12vw, 12rem);
+  font-size: clamp(6rem, 20vw, 20rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
   color: var(--white);
   text-transform: lowercase;
-  margin-bottom: -1.5rem;
+  margin-bottom: -5rem;
 }
 
 .wg-cat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   position: relative;
   z-index: 2;
@@ -553,15 +612,29 @@ button {
 
 @media (max-width: 900px) {
   .wg-cat-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 480px) {
   .wg-cat-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1px;
   }
+
+  .wg-category-title {
+    margin-bottom: -1rem;
+    font-size: clamp(5rem, 20vw, 8rem);
+  }
+
+  .wg-category-header {
+    padding: 3rem 1.5rem 0 0.5rem;
+  }
+}
+
+.wg-cat-item {
+  display: flex;
+  flex-direction: column;
 }
 
 .wg-cat-tile {
@@ -569,6 +642,7 @@ button {
   overflow: hidden;
   aspect-ratio: 3 / 4;
   cursor: pointer;
+  display: block;
 }
 
 .wg-cat-tile img {
@@ -584,15 +658,53 @@ button {
   filter: brightness(0.9);
 }
 
-.wg-cat-tile-label {
+/* Shop button slides up from bottom of image on hover */
+.wg-cat-tile-btn-wrap {
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  font-size: 0.6rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 1rem;
+  transform: translateY(110%);
+  transition: transform 0.35s var(--ease);
+  z-index: 10;
+}
+
+.wg-cat-tile:hover .wg-cat-tile-btn-wrap {
+  transform: translateY(0);
+}
+
+/* Category name always visible below the image */
+.wg-cat-tile-label {
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--white);
+  padding: 0.5rem 0 0;
+}
+
+.wg-cat-tile-btn {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.wg-cat-tile-btn:hover {
+  background: var(--white);
+  color: var(--black);
 }
 
 /* ================================================
@@ -641,6 +753,157 @@ button {
 
 .wg-editorial-label a:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+/* ================================================
+   EDITORIAL TEXT BLOCK
+   ================================================ */
+.wg-editorial-text {
+  background: var(--white);
+  padding: 8rem 2rem;
+  text-align: left;
+}
+
+.wg-editorial-text p {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.wg-editorial-text p strong {
+  font-weight: 900;
+}
+
+.wg-large-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.wg-large-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wg-large-banner-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.02em 0.5rem;
+  line-height: 0.88;
+  pointer-events: none;
+}
+
+.wg-large-banner-line {
+  display: block;
+  font-size: clamp(6rem, 22vw, 22rem);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  line-height: 0.88;
+}
+
+.wg-must-have-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 4rem 12rem;
+  margin-top: 4rem;
+  background: var(--white);
+}
+
+.wg-must-have-item {
+  text-align: left;
+}
+
+.wg-must-have-img-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  height: 70vh;
+}
+
+.wg-must-have-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+
+.wg-must-have-img-wrap:hover img {
+  transform: scale(1.05);
+}
+
+.wg-must-have-label {
+  position: absolute;
+  bottom: -0.8rem;
+  left: 1.5rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wg-must-have-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.wg-must-have-price {
+  font-size: 0.85rem;
+  color: var(--gray-mid);
+  margin-top: 0.25rem;
+}
+
+.wg-must-have-buy-btn {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.85rem 2.5rem;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: transparent;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.wg-must-have-buy-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .wg-must-have-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .wg-must-have-img-wrap {
+    height: 70vw;
+  }
+
+  .wg-must-have-buy-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+  }
 }
 
 /* ================================================
@@ -749,14 +1012,14 @@ button {
 }
 
 .wg-pdp-accordion-btn::after {
-  content: '+';
+  content: "+";
   font-size: 1rem;
   font-weight: 300;
   transition: transform 0.25s;
 }
 
 .wg-pdp-accordion.open .wg-pdp-accordion-btn::after {
-  content: '−';
+  content: "−";
 }
 
 .wg-pdp-accordion-body {
@@ -875,7 +1138,10 @@ button {
   font-size: 0.7rem;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
 }
 
 .wg-size-btn:hover,

@@ -10,11 +10,17 @@ export default function ProductList({ products }) {
         <h2 className="wg-arrivals-title">arrivals</h2>
       </div>
 
-      {/* 5-column product scroll */}
-      <div className="wg-arrivals-scroll">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+      {/* Seamless auto-scrolling row */}
+      <div className="wg-arrivals-marquee">
+        <div className="wg-arrivals-track">
+          {products.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+          {/* Duplicate for seamless effect */}
+          {products.map((p) => (
+            <ProductCard key={`${p.id}-dup`} product={p} aria-hidden="true" />
+          ))}
+        </div>
       </div>
     </section>
   );

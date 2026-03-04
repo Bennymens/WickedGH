@@ -8,6 +8,9 @@ import ProductDetailPage from "./components/ProductDetailPage";
 import ShopPage from "./components/ShopPage";
 import Footer from "./components/Footer";
 import products from "./data/products";
+import EditorialBanner from "./components/EditorialBanner";
+import LargeBanner from "./components/LargeBanner";
+import MustHaveSection from "./components/MustHaveSection";
 
 function Home() {
   return (
@@ -15,6 +18,9 @@ function Home() {
       <Hero />
       <ProductList products={products} />
       <CategorySection />
+      <EditorialBanner />
+      <MustHaveSection />
+      <LargeBanner />
     </main>
   );
 }
@@ -24,7 +30,9 @@ function Cart() {
     <main>
       <div className="wg-cart-page">
         <h1>Your Bag</h1>
-        <p className="wg-cart-empty">Your bag is empty — discover new arrivals.</p>
+        <p className="wg-cart-empty">
+          Your bag is empty — discover new arrivals.
+        </p>
       </div>
     </main>
   );
