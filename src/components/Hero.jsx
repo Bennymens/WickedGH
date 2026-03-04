@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="wg-hero">
       {/* Full-bleed editorial video */}
       <video
-        src="/videos/hero/WhatsApp Video 2026-03-03 at 2.40.33 PM (1).mp4"
+        src="/videos/hero/hero-video.mp4"
         autoPlay
         muted
         loop
